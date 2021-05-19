@@ -1,0 +1,5 @@
+1. Video and audio get browser
+2. Video and audio record
+3. Canvas -> photo and Video
+
+
