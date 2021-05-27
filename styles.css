@@ -2,6 +2,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    overflow: hidden;
 }
 .main-container {
     height: 100vh;
@@ -24,24 +25,51 @@ video {
 .overBtn {
     position: fixed;
     width: 5rem;
-    height: 3rem;
+    height: 5rem;
     left: 90%;
 }
 .recordBtn {
     top: 40%;
     background: #eee;
     border: 1px solid white;
-    border-radius: 10px;
+    border-radius: 50%;
     cursor: pointer;
 }
 .clickBtn {
     top: 60%;
     background: #eee;
     border: 1px solid white;
-    border-radius: 10px;
+    border-radius: 50%;
     cursor: pointer;
 }
-
+.red-record{
+    width: 40%;
+    height: 40%;
+    background-color: red;
+    margin: 0 auto;
+    border-radius: 50%;
+}
+.record-anim{
+    animation : anim-record 2s infinite;
+}
+@keyframes anim-record{
+    0%{
+        transform: scale(1);
+    }
+    50%{
+        transform: scale(1.2);
+    }
+    100%{
+        transform: scale(1)
+    }
+}
+.capture-btn{
+    height: 80%;
+    width: 80%;
+    background-color: black;
+    margin: 0 auto;
+    border-radius: 50%;
+}
 .filter {
     height: 100vh;
     width: 100vw;
@@ -78,4 +106,17 @@ video {
     left: 3.2rem;
     display: none;
 }
-
+.zoom-container{
+    color: white;
+    font-weight: bold;
+    position: fixed;
+    bottom: 8%;
+    left: 5%;
+    font-size: 30px;
+    border: 1px solid white;
+    padding: 1rem;
+    border-radius: 5px;
+}
+.zoomin{
+    margin-top: 15px;
+}

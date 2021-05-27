@@ -5,6 +5,10 @@ let clickbtn = document.querySelector(".clickBtn");
 let filterTypes = document.querySelectorAll(".filter-type");
 let filter = document.querySelector(".filter");
 let timings = document.querySelector(".timer");
+let recordAnim = document.querySelector(".red-record");
+let zoomin = document.querySelector(".zoomin");
+let zoomout = document.querySelector(".zoomout");
+let scaleLevel = 1;
 let filterColor = "";
 let counter = 0;
 let stopTimer = 0;
@@ -62,13 +66,13 @@ recordBtn.addEventListener("click", function () {
     if (isRecording == false) {
         //Starts the recording and fire ondataavailable event
         mediaRecObject.start();
-        recordBtn.innerText = "Recording....";
         startTimer();
+        recordAnim.classList.add("record-anim");
     } else {
         //Stops the recording and fire onstop event
         mediaRecObject.stop();
-        recordBtn.innerText = "Record";
         stopTiming();
+        recordAnim.classList.remove("record-anim");
     }
     isRecording = !isRecording;
 });
@@ -78,7 +82,11 @@ clickbtn.addEventListener("click", function () {
     canvas.height = videoElem.videoHeight;
     canvas.width = videoElem.videoWidth;
     let tool = canvas.getContext("2d");
-    tool.drawImage(videoElem, 0, 0);
+
+    var x = (tool.canvas.width / scaleLevel - videoElem.videoWidth) / 2;
+    var y = (tool.canvas.height / scaleLevel - videoElem.videoHeight) / 2;
+
+    tool.drawImage(videoElem, x, y);
     if (filterColor) {
         tool.fillStyle = filterColor;
         tool.fillRect(0, 0, canvas.width, canvas.height);
@@ -115,7 +123,21 @@ function startTimer() {
     }
     stopTimer = setInterval(fn, 1000);
 }
-function stopTiming(){
+function stopTiming() {
     timings.style.display = "none";
-    clearInterval(stopTimer)
+    clearInterval(stopTimer);
 }
+
+zoomin.addEventListener("click", function () {
+    if (scaleLevel < 1.7) {
+        scaleLevel = scaleLevel + 0.1;
+        videoElem.style.transform = `scale(${scaleLevel})`;
+    }
+});
+
+zoomout.addEventListener("click", function () {
+    if (scaleLevel >= 1) {
+        scaleLevel = scaleLevel - 0.1;
+        videoElem.style.transform = `scale(${scaleLevel})`;
+    }
+});
